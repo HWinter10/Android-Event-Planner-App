@@ -2,8 +2,6 @@
  * Data Transfer Object for events from network.
  * Mapped to/from EventEntity via Mapper.
  */
-
-
 package com.example.eventplanner.network
 
 data class EventDto(

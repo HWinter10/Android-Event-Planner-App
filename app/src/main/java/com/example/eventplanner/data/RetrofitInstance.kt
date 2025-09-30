@@ -11,7 +11,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 object RetrofitInstance {
 
-    private const val BASE_URL = "https://yourserver.com/api/" // Replace with your actual API base URL
+    private const val BASE_URL = "https://yourserver.com/api/" // Replace with actual API base URL when applicable
 
     val api: EventApi by lazy {
         Retrofit.Builder()

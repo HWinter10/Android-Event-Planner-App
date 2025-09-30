@@ -4,7 +4,6 @@
  * Handles validation, loading, and errors.
  * Saves changes via EventViewModel.
  */
-
 package com.example.eventplanner.userint
 
 import android.app.Activity
@@ -34,18 +33,18 @@ fun EditEventScreen(
     val context = LocalContext.current
     val activity = context as? Activity
 
-    // Collect events as state and copy to a local val for safe smart casts
+    // collect events state
     val eventsResourceState by eventViewModel.events.collectAsState()
     val eventsResource = eventsResourceState
 
-    // Find the event we are editing
+    // find event to edit
     val event = remember(eventsResource) {
         when (eventsResource) {
             is Resource.Success -> eventsResource.data.firstOrNull { it.id == eventId }
             else -> null
         }
     }
-
+    // form state
     var title by remember { mutableStateOf(event?.title ?: "") }
     var description by remember { mutableStateOf(event?.description ?: "") }
     var location by remember { mutableStateOf(event?.location ?: "") }
@@ -55,7 +54,7 @@ fun EditEventScreen(
     var isUpdating by remember { mutableStateOf(false) }
     var updateError by remember { mutableStateOf<String?>(null) }
 
-    // Show loading state
+    // show loading state
     if (eventsResource is Resource.Loading) {
         Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
             CircularProgressIndicator()
@@ -63,14 +62,14 @@ fun EditEventScreen(
         return
     }
 
-    // Show error if event not found
+    // show error if event not found
     if (event == null) {
         Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
             Text("Event not found", style = MaterialTheme.typography.body1)
         }
         return
     }
-
+    // form container
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -78,28 +77,28 @@ fun EditEventScreen(
         verticalArrangement = Arrangement.spacedBy(12.dp)
     ) {
         Text("Edit Event", style = MaterialTheme.typography.h5)
-
+        // inputs: title
         OutlinedTextField(
             value = title,
             onValueChange = { title = it },
             label = { Text("Event Title") },
             modifier = Modifier.fillMaxWidth()
         )
-
+        // inputs: description
         OutlinedTextField(
             value = description,
             onValueChange = { description = it },
             label = { Text("Description") },
             modifier = Modifier.fillMaxWidth()
         )
-
+        // inputs: location
         OutlinedTextField(
             value = location,
             onValueChange = { location = it },
             label = { Text("Location") },
             modifier = Modifier.fillMaxWidth()
         )
-
+        // button - select date
         Button(onClick = {
             val cal = Calendar.getInstance()
             DatePickerDialog(
@@ -112,7 +111,7 @@ fun EditEventScreen(
         }, modifier = Modifier.fillMaxWidth()) {
             Text(if (date.isEmpty()) "Select Date" else date)
         }
-
+        // button - select time
         Button(onClick = {
             val cal = Calendar.getInstance()
             val hour = cal.get(Calendar.HOUR_OF_DAY)
@@ -133,19 +132,19 @@ fun EditEventScreen(
         }, modifier = Modifier.fillMaxWidth()) {
             Text(if (time.isEmpty()) "Select Time" else time)
         }
-
+        // reminder toggle
         Row(verticalAlignment = Alignment.CenterVertically) {
             Text("Reminder")
             Spacer(Modifier.width(8.dp))
             Switch(checked = reminder, onCheckedChange = { reminder = it })
         }
-
+        // text - update error
         updateError?.let { Text("Error: $it", color = MaterialTheme.colors.error) }
-
+        // loading indicator during update
         if (isUpdating) {
             CircularProgressIndicator(modifier = Modifier.align(Alignment.CenterHorizontally))
         }
-
+        // button - save changes
         Button(
             onClick = {
                 if (title.isNotBlank() && date.isNotBlank() && time.isNotBlank()) {
@@ -169,8 +168,7 @@ fun EditEventScreen(
             Text("Save Changes")
         }
     }
-
-    // React to updates and errors safely
+    // handle update results
     LaunchedEffect(eventsResource) {
         if (isUpdating) {
             when (eventsResource) {

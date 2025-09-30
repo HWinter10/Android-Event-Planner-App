@@ -2,7 +2,6 @@
  * Factory to provide EventViewModel with repository dependency.
  * Required for viewModel initialization in Compose and Activity.
  */
-
 package com.example.eventplanner.viewmodel
 
 import android.app.Application
@@ -15,13 +14,13 @@ class EventViewModelFactory(private val application: Application) : ViewModelPro
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(EventViewModel::class.java)) {
-            // Get DAO from Room database
+            // get DAO from Room database
             val dao = EventDatabase.getDatabase(application).eventDao()
-            // Get Retrofit API instance
+            // get Retrofit API instance
             val api = RetrofitInstance.api
-            // Create repository
+            // create repository
             val repository = EventRepository(dao, api)
-            // Return ViewModel instance
+            // return ViewModel instance
             return EventViewModel(repository) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")

@@ -1,4 +1,3 @@
-// File: ui/theme/Color.kt
 package com.example.eventplanner.ui.theme
 
 import androidx.compose.ui.graphics.Color

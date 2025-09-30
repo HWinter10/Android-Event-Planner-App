@@ -4,7 +4,6 @@
  * Handles route arguments (e.g., eventId for EditEventScreen).
  * Provides type-safe navigation via sealed class Screen.
  */
-
 package com.example.eventplanner
 
 import androidx.compose.runtime.Composable
@@ -17,7 +16,7 @@ import com.example.eventplanner.userint.EditEventScreen
 import com.example.eventplanner.userint.HomeScreen
 import com.example.eventplanner.viewmodel.EventViewModel
 
-// Defines all screens/routes
+// defines all screens/routes
 sealed class Screen(val route: String) {
     object Home : Screen("home")
     object AddEvent : Screen("add_event")

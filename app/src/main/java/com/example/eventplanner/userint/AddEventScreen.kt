@@ -205,7 +205,7 @@ fun AddEventScreen(
                         title, description, date, time, location, reminder, attendees
                     )
 
-                    // Optional: Google Calendar integration
+                    // Google Calendar integration
                     try {
                         val sdf = SimpleDateFormat("yyyy-MM-dd hh:mm a", Locale.getDefault())
                         val startMillis = sdf.parse("$date $time")?.time ?: System.currentTimeMillis()

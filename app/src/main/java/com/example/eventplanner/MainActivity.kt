@@ -22,7 +22,7 @@ import com.example.eventplanner.work.SyncEventsWorker
 import java.util.concurrent.TimeUnit
 
 class MainActivity : ComponentActivity() {
-
+    // ViewModel initialized via factory
     private val eventViewModel: EventViewModel by viewModels {
         EventViewModelFactory(application)
     }
@@ -30,7 +30,7 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        // Schedule periodic background sync
+        // schedule periodic background sync: 15 min
         val syncWorkRequest = PeriodicWorkRequestBuilder<SyncEventsWorker>(
             15, TimeUnit.MINUTES // Minimum allowed interval
         ).build()
@@ -41,7 +41,7 @@ class MainActivity : ComponentActivity() {
             syncWorkRequest
         )
 
-        // Set Compose content
+        // set Compose content & navigation
         setContent {
             EventPlannerTheme {
                 val navController = rememberNavController()

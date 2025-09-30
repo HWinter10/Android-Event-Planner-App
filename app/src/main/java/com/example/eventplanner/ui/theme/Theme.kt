@@ -1,4 +1,3 @@
-// File: ui/theme/Theme.kt
 package com.example.eventplanner.ui.theme
 
 import androidx.compose.material.*

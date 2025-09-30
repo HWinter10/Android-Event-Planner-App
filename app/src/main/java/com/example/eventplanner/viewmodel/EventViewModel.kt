@@ -4,7 +4,6 @@
  * Handles add, update, delete operations.
  * Communicates with EventRepository.
  */
-
 package com.example.eventplanner.viewmodel
 
 import androidx.lifecycle.ViewModel
@@ -16,18 +15,17 @@ import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 
 class EventViewModel(private val repository: EventRepository) : ViewModel() {
-
+    // events list
     private val _events = MutableStateFlow<Resource<List<EventEntity>>>(Resource.Loading())
     val events: StateFlow<Resource<List<EventEntity>>> = _events.asStateFlow()
-
-    // NEW: separate state for add event
+    // add event operation
     private val _addEventState = MutableStateFlow<Resource<Unit>?>(null)
     val addEventState: StateFlow<Resource<Unit>?> = _addEventState.asStateFlow()
 
     init {
         loadEvents()
     }
-
+    // load all events
     private fun loadEvents() {
         viewModelScope.launch {
             repository.getEvents()
@@ -39,7 +37,7 @@ class EventViewModel(private val repository: EventRepository) : ViewModel() {
                 }
         }
     }
-
+    // add new event
     fun addEvent(
         title: String,
         description: String,
@@ -69,11 +67,11 @@ class EventViewModel(private val repository: EventRepository) : ViewModel() {
             }
         }
     }
-
+    // reset add event
     fun resetAddEventState() {
         _addEventState.value = null
     }
-
+    // update existing event
     fun updateEvent(event: EventEntity) {
         viewModelScope.launch {
             try {
@@ -84,7 +82,7 @@ class EventViewModel(private val repository: EventRepository) : ViewModel() {
             }
         }
     }
-
+    // delete existing event
     fun deleteEvent(event: EventEntity) {
         viewModelScope.launch {
             try {
