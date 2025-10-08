@@ -25,7 +25,7 @@ android {
     }
 
     buildFeatures { compose = true }
-    composeOptions { kotlinCompilerExtensionVersion = "1.5.0" }
+    composeOptions { kotlinCompilerExtensionVersion = "1.5.3" }
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
@@ -44,6 +44,11 @@ android {
             )
         }
     }
+
+    testOptions {
+        unitTests.isIncludeAndroidResources = true
+        animationsDisabled = true
+    }
 }
 
 dependencies {
@@ -51,9 +56,12 @@ dependencies {
     implementation("androidx.core:core-ktx:1.10.1")
     implementation("com.google.android.material:material:1.8.0")
 
-    // Compose
-    implementation("androidx.compose.ui:ui:1.5.0")
-    implementation("androidx.compose.material:material:1.5.0")
+    // Compose with BOM
+    implementation(platform("androidx.compose:compose-bom:2023.08.00"))
+    androidTestImplementation(platform("androidx.compose:compose-bom:2023.08.00"))
+
+    implementation("androidx.compose.ui:ui")
+    implementation("androidx.compose.material:material")
     implementation("androidx.activity:activity-compose:1.8.0")
     implementation("androidx.navigation:navigation-compose:2.7.0")
 
@@ -89,12 +97,20 @@ dependencies {
     // Google Places SDK
     implementation("com.google.android.libraries.places:places:3.5.0")
 
-    // Testing
+    // Unit tests
     testImplementation("junit:junit:4.13.2")
     testImplementation("org.mockito:mockito-core:5.5.0")
     testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3")
     testImplementation("org.mockito.kotlin:mockito-kotlin:5.1.0")
-    androidTestImplementation("androidx.test.ext:junit:1.1.5")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
-    androidTestImplementation("androidx.compose.ui:ui-test-junit4:1.5.0")
+
+    // Instrumented tests
+    androidTestImplementation("junit:junit:4.13.2")
+    androidTestImplementation("androidx.test.ext:junit:1.2.1")
+    androidTestImplementation("androidx.test.espresso:espresso-core:3.6.1")
+    androidTestImplementation("androidx.test:runner:1.6.1")
+    androidTestImplementation("androidx.test:rules:1.6.1")
+
+    // Compose testing (pulled from BOM)
+    androidTestImplementation("androidx.compose.ui:ui-test-junit4")
+    debugImplementation("androidx.compose.ui:ui-test-manifest")
 }

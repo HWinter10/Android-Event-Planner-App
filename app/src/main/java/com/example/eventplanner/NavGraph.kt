@@ -15,9 +15,11 @@ import com.example.eventplanner.userint.AddEventScreen
 import com.example.eventplanner.userint.EditEventScreen
 import com.example.eventplanner.userint.HomeScreen
 import com.example.eventplanner.viewmodel.EventViewModel
+import com.example.eventplanner.userint.SplashScreen
 
-// defines all screens/routes
+
 sealed class Screen(val route: String) {
+    object Splash : Screen("splash")
     object Home : Screen("home")
     object AddEvent : Screen("add_event")
     object EditEvent : Screen("edit_event/{eventId}") {
@@ -30,9 +32,12 @@ fun NavGraph(
     navController: NavHostController = rememberNavController(),
     eventViewModel: EventViewModel
 ) {
-    NavHost(navController = navController, startDestination = Screen.Home.route) {
+    NavHost(navController = navController, startDestination = Screen.Splash.route) {
 
-        // HomeScreen
+        composable(Screen.Splash.route) {
+            SplashScreen(navController = navController)
+        }
+
         composable(Screen.Home.route) {
             HomeScreen(
                 navController = navController,
@@ -40,7 +45,6 @@ fun NavGraph(
             )
         }
 
-        // AddEventScreen
         composable(Screen.AddEvent.route) {
             AddEventScreen(
                 eventViewModel = eventViewModel,
@@ -48,7 +52,6 @@ fun NavGraph(
             )
         }
 
-        // EditEventScreen
         composable(Screen.EditEvent.route) { backStackEntry ->
             val eventId = backStackEntry.arguments?.getString("eventId")?.toIntOrNull()
             eventId?.let {
