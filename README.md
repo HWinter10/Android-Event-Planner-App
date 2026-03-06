@@ -36,19 +36,11 @@ The Event Planner App is an Android application designed to help users organize 
 
 Several testing methods were used to verify the application's reliability and functionality.
 
-#### Unit Testing
-Unit tests were used to validate core application logic, including event management and database operations.
-
-#### Instrumented Testing
-Instrumented tests ensured the application behaved correctly on Android devices and emulators.
-
-#### UI Testing
-User interface testing verified that navigation, event creation, and interaction elements worked as expected.
-
-#### Performance and Compatibility
-
-Device compatibility was evaluated using multiple Android Studio emulator configurations, including small phone, medium phone, and tablet layouts as well as physical Andoird devices. This testing confirmed that the interface adapts correctly across different screen sizes.
-
-Performance profiling was conducted using Android Studio’s profiler tools to monitor CPU and memory activity during typical user interactions. The results indicated stable performance without significant memory issues.
-
-Accessibility testing was also performed using Android's Accessibility Scanner to evaluate contrast, touch targets, and screen reader compatibility.
+<ul>
+  <li>Unit Testing: Unit tests were used to validate core application logic, including event management and database operations.</li>
+  <li>Instrumented Testing: Instrumented tests ensured the application behaved correctly on Android devices and emulators.</li>
+  <li>UI Testing: User interface testing verified that navigation, event creation, and interaction elements worked as expected.</li>
+  <li>Performance and Compatibility: Device compatibility was evaluated using multiple Android Studio emulator configurations, including small phone, medium phone, and tablet layouts as well as physical Andoird devices. This testing confirmed that the interface adapts correctly across different screen sizes.</li>
+  <li>Performance profiling: Conducted using Android Studio’s profiler tools to monitor CPU and memory activity during typical user interactions. The results indicated stable performance without significant memory issues.</li>
+  <li>Accessibility testing: Performed using Android's Accessibility Scanner to evaluate contrast, touch targets, and screen reader compatibility.</li>
+</ul>
